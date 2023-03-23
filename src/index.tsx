@@ -1,19 +1,25 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Favicon from "react-favicon";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import axios from "axios";
 
+axios.defaults.baseURL = "https://server.cscsmadagascar.mg/api/";
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
-  <BrowserRouter>
-    <Favicon url="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png" />
-    <App />
-  </BrowserRouter>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <Favicon url="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png" />
+      <App />
+    </BrowserRouter>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

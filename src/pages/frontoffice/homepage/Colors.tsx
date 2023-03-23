@@ -1,6 +1,8 @@
 import React from "react";
+import { useGetAllProduct } from "../../../hooks/useProduct";
 
 function Colors() {
+  const { data, isLoading, isSuccess, isError } = useGetAllProduct();
   return (
     <div className="h-fit w-screen  py-4 md:py-12 bg-stone-200 flex flex-col items-center justify-center prose max-w-none overflow-x-hidden">
       <h2 className="text-5xl mb-4 md:mb-12 ">Nos coloris</h2>
