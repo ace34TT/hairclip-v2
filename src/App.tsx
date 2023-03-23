@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Homepage from "./views/pages/frontoffice/homepage/Homepage";
+import Frontoffice from "./views/layouts/frontoffice/Main/Frontoffice";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Frontoffice />}></Route>
+      {/* <Route path="applicant" element={<Template />}>
+        <Route path="application-form" element={<RegistrationForm />}></Route>
+        <Route
+          path="confirm-application/:candidateId/:token"
+          element={<ApplicationConfirmation />}
+        ></Route>
+      </Route> */}
+    </Routes>
   );
 }
 
