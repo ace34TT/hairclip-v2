@@ -1,11 +1,11 @@
 import React from "react";
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
 function FrontendHeader() {
   return (
     <header className="flex my-4 justify-between items-center w-full md:h-24 bg-white">
       <div className="ml-4 md:ml-1 flex cursor-pointer gap-2 lg:gap-5 items-center pl-0 lg:pl-16">
         <img
-          src="{{ asset('images/logo/1_transparent_logo_black_scroped.png') }}"
+          src="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png"
           className="h-14 md:h-20"
           alt=""
         />
@@ -21,12 +21,14 @@ function FrontendHeader() {
         <li className="mr-6 md:mr-0">
           <a href="{{ route('shopping-cart.index') }}" className="flex gap-4">
             <div className="relative p-4">
-              {/* <x-bx-cart class="h-9 w-9" /> */}
+              <AiOutlineShoppingCart className="h-9 w-9" />
               <div className="absolute top-2 right-1 md:top-0 md:-right-3">
                 <span
                   id="total-cart-items"
                   className="inline-flex items-center rounded-full bg-white md:bg-gray-100 md:px-3 py-0.5 text-sm font-medium text-gray-800"
-                ></span>
+                >
+                  0
+                </span>
               </div>
             </div>
           </a>
