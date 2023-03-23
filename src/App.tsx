@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Frontoffice from "./Main/Frontoffice";
+import Frontoffice from "./pages/frontoffice/layouts/Frontoffice";
 import Homepage from "./pages/frontoffice/homepage/Homepage";
 
 function App() {

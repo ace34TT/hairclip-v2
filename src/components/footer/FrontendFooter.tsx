@@ -4,7 +4,7 @@ function FrontendFooter() {
   return (
     <footer
       id="footer"
-      className="mt-auto fixed bottom-0 left-0 w-full h-fit p-5 gap-5 md:p-10 bg-d-green"
+      className="mt-auto  w-full h-fit p-5 gap-5 md:p-10 bg-d-green"
     >
       <div className="h-fit flex flex-col sm:flex-row justify-center items-center gap-12 ">
         <div className="">
