@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineCheckCircle, AiOutlineCreditCard } from "react-icons/ai";
-import { TbTruckDelivery } from "react-icons/tb";
+import { CiDeliveryTruck } from "react-icons/ci";
 import { BiSupport } from "react-icons/bi";
 
 function Commitment() {
@@ -19,7 +19,7 @@ function Commitment() {
       </div>
       <div className="flex items-center gap-5">
         <div>
-          <TbTruckDelivery size={56} />
+          <CiDeliveryTruck size={56} />
         </div>
         <div className="">
           <h4 className="m-0 font-bold text-d-green">Livraison Rapide</h4>
