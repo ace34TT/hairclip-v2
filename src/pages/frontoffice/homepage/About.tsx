@@ -1,4 +1,5 @@
 import React from "react";
+import videoPreview from "./../../../assets/video-preview/video-preview-1.png";
 
 function About() {
   return (
@@ -9,10 +10,7 @@ function About() {
       <div className="flex-1 flex justify-center">
         <div style={{ maxWidth: "95%", height: "auto" }}>
           <div className="cursor-pointer " id="video-preview-1">
-            <img
-              src="{{ asset('images/video-preview/video-preview-1.png') }}"
-              alt=""
-            />
+            <img src={videoPreview} alt="" />
           </div>
         </div>
       </div>
