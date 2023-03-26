@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://server.cscsmadagascar.mg/api/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

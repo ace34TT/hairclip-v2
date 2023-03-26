@@ -5,17 +5,26 @@ interface IProps {
   name: string;
   color: string;
   price: number;
+  preview: string;
 }
 
-export default function ProductCard({ id, color, name, price }: IProps) {
+export default function ProductCard({
+  id,
+  color,
+  name,
+  price,
+  preview,
+}: IProps) {
   return (
     <div className="inline-block">
       <div
         style={{ backgroundColor: color, minWidth: "384px" }}
         className="flex w-80 md:w-96 py-6 flex-col items-center rounded-3xl prose hover:scale-105 hover:shadow-md transition ease-in-out cursor-pointer break-words"
       >
-        <h2 className="text-white">{name}</h2>
-        <img src="" className="rounded-3xl" alt="" />
+        <h2 className="text-white">
+          {name} {color}
+        </h2>
+        <img src={preview} className="rounded-3xl" alt="" />
         <div className="text-slate-50 w-10/12 text-center  inline-block">
           <div className="flex justify-center ">
             <div className="text-2xl">{price} €</div>
