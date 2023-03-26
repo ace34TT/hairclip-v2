@@ -3,6 +3,7 @@ import Hero from "./Hero";
 import About from "./About";
 import { Helmet } from "react-helmet";
 import Colors from "./colors/Colors";
+import Commitment from "./Commitment";
 
 function Homepage() {
   return (
@@ -13,6 +14,7 @@ function Homepage() {
       <Hero />
       <Colors />
       <About />
+      <Commitment />
     </>
   );
 }
