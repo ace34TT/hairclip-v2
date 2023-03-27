@@ -1,9 +1,14 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 function FrontendHeader() {
+  const navigate = useNavigate();
   return (
     <header className="flex my-4 justify-between items-center w-full md:h-24 bg-white">
-      <div className="ml-4 md:ml-1 flex cursor-pointer gap-2 lg:gap-5 items-center pl-0 lg:pl-16">
+      <div
+        onClick={() => [navigate("/")]}
+        className="ml-4 md:ml-1 flex cursor-pointer gap-2 lg:gap-5 items-center pl-0 lg:pl-16"
+      >
         <img
           src="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png"
           className="h-14 md:h-20"

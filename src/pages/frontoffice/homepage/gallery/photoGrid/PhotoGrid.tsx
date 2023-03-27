@@ -40,7 +40,7 @@ const PhotoGrid = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     handleExtendGallery() {
       setExtendedGallery(!extendedGallery);
-      console.log(extendedFirstItemRef.current);
+
       if (extendedFirstItemRef.current && extendedGallery === false)
         extendedFirstItemRef.current.scrollIntoView({
           behavior: "smooth",

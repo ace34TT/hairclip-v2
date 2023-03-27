@@ -32,7 +32,7 @@ function Colors() {
                 return (
                   <ProductCard
                     key={key}
-                    id={""}
+                    id={product.id}
                     name={product.name}
                     color={product.value}
                     price={product.price}

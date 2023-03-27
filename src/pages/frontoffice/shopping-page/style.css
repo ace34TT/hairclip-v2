@@ -1,0 +1,7 @@
+.active-selected-item {
+  border: solid 2px black;
+}
+
+.inactive-selected-item {
+  border: solid 2px white;
+}
