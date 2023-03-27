@@ -11,7 +11,6 @@ export const useGetAllProduct = () => {
       onSuccess(data) {},
       onError(err) {},
       select: (data: any) => {
-        console.log(data.data);
         return data.data;
       },
     }
