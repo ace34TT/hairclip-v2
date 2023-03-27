@@ -19,7 +19,7 @@ function Colors() {
       <h2 className="text-5xl mb-4 md:mb-12 ">Nos coloris</h2>
       <div className="flex justify-center items-center gap-8">
         <div className="flex items-center h-44 cursor-pointer">
-          <HiOutlineChevronLeft onClick={() => handleScroll(-700)} />
+          <HiOutlineChevronLeft size={56} onClick={() => handleScroll(-700)} />
         </div>
         <div
           id="products"
@@ -42,7 +42,7 @@ function Colors() {
               })}
         </div>
         <div className="flex items-center h-44 cursor-pointer">
-          <HiChevronRight onClick={() => handleScroll(700)} />
+          <HiChevronRight size={56} onClick={() => handleScroll(700)} />
         </div>
       </div>
     </div>

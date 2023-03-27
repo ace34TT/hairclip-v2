@@ -1,0 +1,12 @@
+.opinions::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+}
+#opinions {
+  width: 13%;
+}
+@media (min-width: 768px) {
+  #opinions {
+    width: 36%;
+  }
+}

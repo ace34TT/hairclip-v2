@@ -1,6 +1,6 @@
-.products::-webkit-scrollbar,
-.opinions::-webkit-scrollbar {
+.products::-webkit-scrollbar {
   display: none;
+  scrollbar-width: none;
 }
 
 .hairclip-img {
@@ -13,9 +13,7 @@
 #products {
   width: 14.5%;
 }
-#opinions {
-  width: 13%;
-}
+
 @media (min-width: 768px) {
   .hairclip-img {
     width: 300px;
@@ -26,8 +24,5 @@
   }
   #products {
     width: 41%;
-  }
-  #opinions {
-    width: 36%;
   }
 }
