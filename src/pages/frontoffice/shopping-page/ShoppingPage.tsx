@@ -34,6 +34,7 @@ export default function ShoppingPage() {
         quantity: quantity,
         name: data[activeElement].name,
         color: data[activeElement].value,
+        preview: data[activeElement].file_name,
       })
     );
     setShowConfetti(true);
