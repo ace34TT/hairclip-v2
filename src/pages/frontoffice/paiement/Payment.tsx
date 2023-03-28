@@ -1,25 +1,44 @@
-import React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useEffect, useState } from "react";
+import CheckoutForm from "./payment-form/CheckoutForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { imgHelper } from "../../../helpers/assets.helper";
 
+const stripePromise = loadStripe(process.env.REACT_APP_PK_STRIPE!);
 export default function Payment() {
+  const cart = useSelector((state: RootState) => state.shoppingCart);
+  const [clientSecret, setClientSecret] = useState("");
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch(process.env.REACT_APP_GENERATE_CLIENT_URL!, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ total: cart.total }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setClientSecret(data.clientSecret);
+      });
+  }, []);
+
+  const options = {
+    clientSecret,
+  };
+
   return (
     <div className="flex justify-center items-cente h-fit ">
       <div className="flex flex-col md:flex-row h-fit min-h-screen w-11/12">
         <div className="flex-1 flex flex-col justify-center items-center prose max-w-none">
           <h2>Mode de paiement</h2>
           <br />
-          <form id="payment-form" className="py-4">
-            <div id="link-authentication-element">
-              {/* <!--Stripe.js injects the Link Authentication Element--> */}
-            </div>
-            <div id="payment-element">
-              {/* <!--Stripe.js injects the Payment Element--> */}
-            </div>
-            <button id="submit">
-              <div className="spinner hidden" id="spinner"></div>
-              <span id="button-text">Payer maintenant</span>
-            </button>
-            <div id="payment-message" className="hidden"></div>
-          </form>
+          {clientSecret && (
+            <Elements options={options} stripe={stripePromise}>
+              <CheckoutForm />
+            </Elements>
+          )}
         </div>
         <div className="flex-1 my-4 bg-slate-100 px-5 sm:px-10 prose max-w-none">
           <h1 className="text-center mx-auto mt-4 mb-0">Récapitulatif</h1>
@@ -41,117 +60,129 @@ export default function Payment() {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {/* {{-- main data --}} */}
-                    @foreach (Cart::content() as $cart_item)
-                    <tr
-                      className="cart-item-row"
-                      data-quantity="{{ $cart_item->qty }}"
-                      data-row-id="{{ $cart_item->rowId }}"
-                    >
-                      <td
-                        colSpan={2}
-                        className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
-                      >
-                        <div className="flex gap-10 items-center">
-                          <div className="w-fit sm:w-56">
-                            <div
-                              className="relative"
-                              style={{ height: "150px", width: "150px" }}
-                            >
-                              <img
-                                className="m-0 rounded-md"
-                                style={{ height: "150px", width: "150px" }}
-                                src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
-                                alt=""
-                              />
-                              <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
-                                {/* {{ $cart_item-> qty}} */}
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-2xl font-bold text-[#03524C]">
-                              {/* {{ $cart_item->model->name }} */}
-                              <span
-                                data-id="{{ $cart_item->id }}"
-                                className="product_id hidden"
-                              ></span>
-                            </p>
-                            <br />
-                            <span>
-                              <span
-                                data-price=""
-                                id="{{ 'product_' . $cart_item->id . '_price' }}"
-                              >
-                                {/* {{ $cart_item-> price}} */}
-                              </span>
-                              €
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="hidden sm:table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                        <div className="flex gap-10 items-center">
-                          <div className="w-fit sm:w-56">
-                            <div
-                              className="relative"
-                              style={{ height: "150px", width: "150" }}
-                            >
-                              <img
-                                className="m-0"
-                                style={{ height: "150", width: "150" }}
-                                src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
-                                alt=""
-                              />
-                              <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
-                                {/* {{ $cart_item-> qty}} */}
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-2xl font-bold text-[#03524C]">
-                              {/* {{ $cart_item->model->name }} */}
-                              <span
-                                data-id="{{ $cart_item->id }}"
-                                className="product_id hidden"
-                              ></span>
-                            </p>
-                            <br />
-                            <span>
-                              <span
-                                data-price=""
-                                id="{{ 'product_' . $cart_item->id . '_price' }}"
-                              >
-                                {/* {{ $cart_item-> price}} */}
-                              </span>
-                              €
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="hidden sm:table-cell whitespace-nowrap py-4 px-3 text-lg font-bold text-black align-middle text-end">
-                        <span
-                          data-subtotal=""
-                          id="{{ 'product_' . $cart_item->id . '_total' }}"
-                          className="sub_total_price"
+                    {cart.products.map((item) => {
+                      return (
+                        <tr
+                          className="cart-item-row"
+                          data-quantity="{{ $cart_item->qty }}"
+                          data-row-id="{{ $cart_item->rowId }}"
                         >
-                          {/* {{ $cart_item-> price * $cart_item -> qty}} */}
-                        </span>{" "}
-                        €
-                      </td>
-                    </tr>
-                    @endforeach
-                    {/* {{-- bottom --}} */}
+                          <td
+                            colSpan={2}
+                            className="table-cell sm:hidden whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                          >
+                            <div className="flex gap-10 items-center">
+                              <div className="w-fit sm:w-56">
+                                <div
+                                  className="relative"
+                                  style={{ height: "150px", width: "150px;" }}
+                                >
+                                  <img
+                                    className="m-0 rounded-md"
+                                    style={{ height: "150px", width: "150px" }}
+                                    src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
+                                    alt=""
+                                  />
+                                  <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
+                                    {/* {{ $cart_item-> qty}} */}
+                                    {item.quantity}
+                                  </span>
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-2xl font-bold text-[#03524C]">
+                                  {/* {{ $cart_item->model->name }} */}
+                                  {item.name}
+                                  <span
+                                    data-id="{{ $cart_item->id }}"
+                                    className="product_id hidden"
+                                  ></span>
+                                </p>
+                                <br />
+                                <span>
+                                  <span
+                                    data-price=""
+                                    id="{{ 'product_' . $cart_item->id . '_price' }}"
+                                  >
+                                    {/* {{ $cart_item-> price}} */}
+                                    {cart.unitPrice}
+                                  </span>
+                                  €
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="hidden sm:table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            <div className="flex gap-10 items-center">
+                              <div className="w-fit sm:w-56">
+                                <div
+                                  className="relative"
+                                  style={{ height: "150px", width: "150px" }}
+                                >
+                                  <img
+                                    className="m-0 rounded-md"
+                                    style={{ height: "150px", width: "150px" }}
+                                    src={imgHelper(item.preview)}
+                                    alt=""
+                                  />
+                                  <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
+                                    {/* {{ $cart_item-> qty}} */}
+                                    {item.quantity}
+                                  </span>
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-2xl font-bold text-[#03524C]">
+                                  {/* {{ $cart_item->model->name }} */}
+                                  {item.name}
+                                  <span
+                                    data-id="{{ $cart_item->id }}"
+                                    className="product_id hidden"
+                                  ></span>
+                                </p>
+                                <br />
+                                <span>
+                                  <span
+                                    data-price=""
+                                    id="{{ 'product_' . $cart_item->id . '_price' }}"
+                                  >
+                                    {/* {{ $cart_item-> price}} */}
+                                    {cart.unitPrice}
+                                  </span>
+                                  €
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="hidden sm:table-cell whitespace-nowrap py-4 px-3 text-lg font-bold text-black align-middle text-end">
+                            <span
+                              data-subtotal=""
+                              id="{{ 'product_' . $cart_item->id . '_total' }}"
+                              className="sub_total_price"
+                            >
+                              {/* {{ $cart_item-> price * $cart_item -> qty}} */}
+                              {cart.unitPrice * cart.quantity}
+                            </span>{" "}
+                            €
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                    {/* @endforeach
+                                    {{-- bottom --}} */}
                     <tr>
                       <td className="whitespace-nowrap py-4 px-3 text-sml align-middle text-xl">
                         <span data-total="" className="text-black font-bold ">
                           {/* Sous-total : {{ Cart::total() }} € */}
+                          Sous-total : {cart.subTotal.toFixed(2)} €
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td className="whitespace-nowrap py-4 px-3 text-sml align-middle text-xl">
                         <span data-total="" className="text-black font-bold ">
-                          {/* Livraison : {{ Cart::count(true) < 3 ? 1.99 : 4.99 }} € */}
+                          Livraison : {cart.shipping} €
                         </span>
                       </td>
                     </tr>
@@ -162,10 +193,8 @@ export default function Payment() {
                         </span>
                         <span data-total="" className="text-black font-bold ">
                           <span id="total_price">
-                            {" "}
-                            :
-                            {/* {{ Cart::total() + (Cart::count(true) < 3 ? 1.99 : 4.99) }} */}
-                          </span>{" "}
+                            : {" " + cart.total.toFixed(2) + " "}
+                          </span>
                           €
                         </span>
                       </td>

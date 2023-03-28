@@ -1,10 +1,13 @@
 import { Field, Form, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import flag from "./../../../assets/others/france.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInformation } from "../../../features/shipping-information";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../redux/store";
+import { imgHelper } from "../../../helpers/assets.helper";
 export default function ShippingDetailsForm() {
+  const cart = useSelector((state: RootState) => state.shoppingCart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const FormSchema = Yup.object().shape({
@@ -311,117 +314,129 @@ export default function ShippingDetailsForm() {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {/* {{-- main data --}} */}
-                    {/* @foreach (Cart::content() as $cart_item) */}
-                    <tr
-                      className="cart-item-row"
-                      data-quantity="{{ $cart_item->qty }}"
-                      data-row-id="{{ $cart_item->rowId }}"
-                    >
-                      <td
-                        colSpan={2}
-                        className="table-cell sm:hidden whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
-                      >
-                        <div className="flex gap-10 items-center">
-                          <div className="w-fit sm:w-56">
-                            <div
-                              className="relative"
-                              style={{ height: "150px", width: "150px;" }}
-                            >
-                              <img
-                                className="m-0 rounded-md"
-                                style={{ height: "150px", width: "150px" }}
-                                src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
-                                alt=""
-                              />
-                              <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
-                                {/* {{ $cart_item-> qty}} */}
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-2xl font-bold text-[#03524C]">
-                              {/* {{ $cart_item->model->name }} */}
-                              <span
-                                data-id="{{ $cart_item->id }}"
-                                className="product_id hidden"
-                              ></span>
-                            </p>
-                            <br />
-                            <span>
-                              <span
-                                data-price=""
-                                id="{{ 'product_' . $cart_item->id . '_price' }}"
-                              >
-                                {/* {{ $cart_item-> price}} */}
-                              </span>
-                              €
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="hidden sm:table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                        <div className="flex gap-10 items-center">
-                          <div className="w-fit sm:w-56">
-                            <div
-                              className="relative"
-                              style={{ height: "150px", width: "150px" }}
-                            >
-                              <img
-                                className="m-0 rounded-md"
-                                style={{ height: "150px", width: "150px" }}
-                                src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
-                                alt=""
-                              />
-                              <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
-                                {/* {{ $cart_item-> qty}} */}
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-2xl font-bold text-[#03524C]">
-                              {/* {{ $cart_item->model->name }} */}
-                              <span
-                                data-id="{{ $cart_item->id }}"
-                                className="product_id hidden"
-                              ></span>
-                            </p>
-                            <br />
-                            <span>
-                              <span
-                                data-price=""
-                                id="{{ 'product_' . $cart_item->id . '_price' }}"
-                              >
-                                {/* {{ $cart_item-> price}} */}
-                              </span>
-                              €
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="hidden sm:table-cell whitespace-nowrap py-4 px-3 text-lg font-bold text-black align-middle text-end">
-                        <span
-                          data-subtotal=""
-                          id="{{ 'product_' . $cart_item->id . '_total' }}"
-                          className="sub_total_price"
+                    {cart.products.map((item) => {
+                      return (
+                        <tr
+                          className="cart-item-row"
+                          data-quantity="{{ $cart_item->qty }}"
+                          data-row-id="{{ $cart_item->rowId }}"
                         >
-                          {/* {{ $cart_item-> price * $cart_item -> qty}} */}
-                        </span>{" "}
-                        €
-                      </td>
-                    </tr>
+                          <td
+                            colSpan={2}
+                            className="table-cell sm:hidden whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                          >
+                            <div className="flex gap-10 items-center">
+                              <div className="w-fit sm:w-56">
+                                <div
+                                  className="relative"
+                                  style={{ height: "150px", width: "150px;" }}
+                                >
+                                  <img
+                                    className="m-0 rounded-md"
+                                    style={{ height: "150px", width: "150px" }}
+                                    src="{{ asset('images/scranchies/' . $cart_item->options['top_view']) }}"
+                                    alt=""
+                                  />
+                                  <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
+                                    {/* {{ $cart_item-> qty}} */}
+                                    {item.quantity}
+                                  </span>
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-2xl font-bold text-[#03524C]">
+                                  {/* {{ $cart_item->model->name }} */}
+                                  {item.name}
+                                  <span
+                                    data-id="{{ $cart_item->id }}"
+                                    className="product_id hidden"
+                                  ></span>
+                                </p>
+                                <br />
+                                <span>
+                                  <span
+                                    data-price=""
+                                    id="{{ 'product_' . $cart_item->id . '_price' }}"
+                                  >
+                                    {/* {{ $cart_item-> price}} */}
+                                    {cart.unitPrice}
+                                  </span>
+                                  €
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="hidden sm:table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            <div className="flex gap-10 items-center">
+                              <div className="w-fit sm:w-56">
+                                <div
+                                  className="relative"
+                                  style={{ height: "150px", width: "150px" }}
+                                >
+                                  <img
+                                    className="m-0 rounded-md"
+                                    style={{ height: "150px", width: "150px" }}
+                                    src={imgHelper(item.preview)}
+                                    alt=""
+                                  />
+                                  <span className="absolute top-0 right-0 px-2 py-1 bg-[#03524C] text-white text-xs font-bold rounded">
+                                    {/* {{ $cart_item-> qty}} */}
+                                    {item.quantity}
+                                  </span>
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-2xl font-bold text-[#03524C]">
+                                  {/* {{ $cart_item->model->name }} */}
+                                  {item.name}
+                                  <span
+                                    data-id="{{ $cart_item->id }}"
+                                    className="product_id hidden"
+                                  ></span>
+                                </p>
+                                <br />
+                                <span>
+                                  <span
+                                    data-price=""
+                                    id="{{ 'product_' . $cart_item->id . '_price' }}"
+                                  >
+                                    {/* {{ $cart_item-> price}} */}
+                                    {cart.unitPrice}
+                                  </span>
+                                  €
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="hidden sm:table-cell whitespace-nowrap py-4 px-3 text-lg font-bold text-black align-middle text-end">
+                            <span
+                              data-subtotal=""
+                              id="{{ 'product_' . $cart_item->id . '_total' }}"
+                              className="sub_total_price"
+                            >
+                              {/* {{ $cart_item-> price * $cart_item -> qty}} */}
+                              {cart.unitPrice * cart.quantity}
+                            </span>{" "}
+                            €
+                          </td>
+                        </tr>
+                      );
+                    })}
+
                     {/* @endforeach
                                     {{-- bottom --}} */}
                     <tr>
                       <td className="whitespace-nowrap py-4 px-3 text-sml align-middle text-xl">
                         <span data-total="" className="text-black font-bold ">
                           {/* Sous-total : {{ Cart::total() }} € */}
+                          Sous-total : {cart.subTotal.toFixed(2)} €
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td className="whitespace-nowrap py-4 px-3 text-sml align-middle text-xl">
                         <span data-total="" className="text-black font-bold ">
-                          {/* Livraison : {{ Cart::count(true) < 3 ? 1.99 : 4.99 }} € */}
+                          Livraison : {cart.shipping} €
                         </span>
                       </td>
                     </tr>
@@ -432,11 +447,9 @@ export default function ShippingDetailsForm() {
                         </span>
                         <span data-total="" className="text-black font-bold ">
                           <span id="total_price">
-                            {" "}
-                            :
-                            {/* {{ Cart::total() + (Cart::count(true) < 3 ? 1.99 : 4.99) }} */}
+                            : {" " + cart.total.toFixed(2) + " "}
                           </span>
-                          €{" "}
+                          €
                         </span>
                       </td>
                     </tr>
