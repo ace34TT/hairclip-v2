@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 function FrontendHeader() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function FrontendHeader() {
           <a href="#footer">Contact</a>
         </li>
         <li className="mr-6 md:mr-0">
-          <a href="{{ route('shopping-cart.index') }}" className="flex gap-4">
+          <Link to={"/panier"} className="flex gap-4">
             <div className="relative p-4">
               <AiOutlineShoppingCart className="h-9 w-9" />
               <div className="absolute top-2 right-1 md:top-0 md:-right-3">
@@ -39,7 +39,7 @@ function FrontendHeader() {
                 </span>
               </div>
             </div>
-          </a>
+          </Link>
         </li>
         <li className="invisible absolute md:static md:visible">
           <button
