@@ -3,8 +3,10 @@ import * as Yup from "yup";
 import flag from "./../../../assets/others/france.png";
 import { useDispatch } from "react-redux";
 import { saveShippingInformation } from "../../../features/shipping-information";
+import { useNavigate } from "react-router-dom";
 export default function ShippingDetailsForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const FormSchema = Yup.object().shape({
     firstname: Yup.string().required("Ce champ est obligatoire"),
     lastname: Yup.string().required("Ce champ est obligatoire"),
@@ -54,6 +56,7 @@ export default function ShippingDetailsForm() {
                   province: values.province,
                 })
               );
+              navigate("/paiement");
             }}
           >
             {({ errors, touched }) => (
@@ -65,7 +68,7 @@ export default function ShippingDetailsForm() {
                       htmlFor="firstname"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Nom{" "}
+                      Nom
                     </label>
                     <div className="mt-2">
                       <Field
