@@ -17,8 +17,30 @@ function Hero() {
     const futureDateFr = moment().locale("fr").add(3, "days").format("LL");
     setCurrentDate(futureDateFr);
   }, []);
+
+  const [loadedImages, setLoadedImages] = useState(0);
+  const [totalImages, setTotalImages] = useState(0);
   useEffect(() => {
-    window.onload = () => {
+    const images = document.querySelectorAll(".hero-img");
+    setTotalImages(images.length);
+
+    const handleImageLoad = () => {
+      setLoadedImages((prevLoadedImages) => prevLoadedImages + 1);
+    };
+
+    images.forEach((img) => {
+      img.addEventListener("load", handleImageLoad);
+    });
+
+    return () => {
+      images.forEach((img) => {
+        img.removeEventListener("load", handleImageLoad);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    if (loadedImages === totalImages) {
       let scrunchiesAnimation = gsap.timeline();
       scrunchiesAnimation
         .to(
@@ -80,8 +102,8 @@ function Hero() {
           },
           "animation-1"
         );
-    };
-  }, []);
+    }
+  }, [loadedImages, totalImages]);
 
   return (
     <div className="container mb-10 md:-mt-24 mx-auto h-fit md:min-h-screen flex justify-center items-center">
@@ -89,43 +111,43 @@ function Hero() {
         <div className="sr-only lg:not-sr-only flex-1 mb-5 :mb-0 relative">
           <img
             id="scrunchie-1"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_1}
             alt=""
           />
           <img
             id="scrunchie-2"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_2}
             alt=""
           />
           <img
             id="scrunchie-3"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_3}
             alt=""
           />
           <img
             id="scrunchie-4"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_4}
             alt=""
           />
           <img
             id="scrunchie-5"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_5}
             alt=""
           />
           <img
             id="scrunchie-6"
-            className="object-contain absolute w-64 h-64"
+            className="hero-img object-contain absolute w-64 h-64"
             src={scrunchies.image_6}
             alt=""
           />
           <img
             id="scrunchie-7"
-            className="object-contain absolute  w-64 h-64"
+            className="hero-img object-contain absolute  w-64 h-64"
             src={scrunchies.image_7}
             alt=""
           />
