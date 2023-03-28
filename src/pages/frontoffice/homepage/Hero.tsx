@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import gsap from "gsap";
 const scrunchies = {
   image_1: require("./../../../assets/scrunchies/HairClip PackS HD-19-min.webp"),
   image_2: require("./../../../assets/scrunchies/HairClip PackS HD-20-min.webp"),
@@ -15,6 +16,71 @@ function Hero() {
     // moment.locale("fr");
     const futureDateFr = moment().locale("fr").add(3, "days").format("LL");
     setCurrentDate(futureDateFr);
+  }, []);
+  useEffect(() => {
+    window.onload = () => {
+      let scrunchiesAnimation = gsap.timeline();
+      scrunchiesAnimation
+        .to(
+          "#scrunchie-1",
+          {
+            duration: 1,
+            rotate: "150deg",
+            x: 300,
+            y: -150,
+          },
+          "animation-1"
+        )
+        .to(
+          "#scrunchie-2",
+          {
+            rotate: "150deg",
+            x: 400,
+            y: -200,
+          },
+          "animation-1"
+        )
+        .to(
+          "#scrunchie-3",
+          {
+            duration: 1,
+            rotate: "150deg",
+            x: 200,
+            y: -250,
+          },
+          "animation-1"
+        )
+        .to(
+          "#scrunchie-4",
+          {
+            duration: 1,
+            rotate: "150deg",
+            x: 150,
+            y: -100,
+          },
+          "animation-1"
+        )
+        .to(
+          "#scrunchie-5",
+          {
+            duration: 1,
+            rotate: "150deg",
+            x: 15,
+            y: -50,
+          },
+          "animation-1"
+        )
+        .to(
+          "#scrunchie-6",
+          {
+            duration: 1,
+            rotate: "150deg",
+            x: 300,
+            y: 250,
+          },
+          "animation-1"
+        );
+    };
   }, []);
 
   return (
