@@ -4,6 +4,7 @@ import ProductCard from "../../../../components/product/product-card/ProductCard
 import { imgHelper } from "../../../../helpers/assets.helper";
 import { HiChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import "./style.css";
+import { PuffLoader } from "react-spinners";
 function Colors() {
   const { data, isLoading } = useGetAllProduct();
   const productContainer = useRef<HTMLDivElement>(null);
@@ -23,23 +24,34 @@ function Colors() {
         </div>
         <div
           id="products"
-          className="products flex gap-3 md:gap-11 overflow-x-auto p-5"
+          className="products flex gap-3 md:gap-11 overflow-x-auto p-5 min-w-[300px]"
           ref={productContainer}
         >
-          {isLoading
-            ? "Loading"
-            : data.map((product: any, key: React.Key | null | undefined) => {
-                return (
-                  <ProductCard
-                    key={key}
-                    id={product.id}
-                    name={product.name}
-                    color={product.value}
-                    price={product.price}
-                    preview={imgHelper(product.file_name)}
-                  ></ProductCard>
-                );
-              })}
+          {isLoading ? (
+            <div className="h-96 w-full flex justify-center items-center">
+              <PuffLoader
+                color={"#03524C"}
+                loading={isLoading}
+                // cssOverride={}
+                size={150}
+                aria-label="Loading Spinner"
+                // data-testid="loader"
+              />
+            </div>
+          ) : (
+            data.map((product: any, key: React.Key | null | undefined) => {
+              return (
+                <ProductCard
+                  key={key}
+                  id={product.id}
+                  name={product.name}
+                  color={product.value}
+                  price={product.price}
+                  preview={imgHelper(product.file_name)}
+                ></ProductCard>
+              );
+            })
+          )}
         </div>
         <div className="flex items-center h-44 cursor-pointer">
           <HiChevronRight size={56} onClick={() => handleScroll(700)} />
