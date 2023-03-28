@@ -4,9 +4,15 @@ import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { imgHelper } from "../../../helpers/assets.helper";
 import "./style.css";
+import ConfettiExplosion from "react-confetti-explosion";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../../../features/shopping-cart-slice";
 
 export default function ShoppingPage() {
+  const dispatch = useDispatch();
+  // * initializing data
   const { data, isLoading } = useGetAllProductForShop();
+  const [quantity, setQuantity] = useState(1);
   const [activeElement, setActiveElement] = useState(-1);
   const { id } = useParams();
   useEffect(() => {
@@ -15,15 +21,26 @@ export default function ShoppingPage() {
       setActiveElement(index);
     }
   }, [isLoading]);
-  //
+  // * when user clicks on an item
   const handleItem = (selectedItem: string) => {
     setActiveElement(parseInt(selectedItem));
   };
-
-  //
-  const [quantity, setQuantity] = useState(1);
-  const handleAddItem = () => {};
-  const handleQuantity = () => {};
+  // * confetti
+  const [showConfetti, setShowConfetti] = React.useState(false);
+  const handleClick = () => {
+    dispatch(
+      addCartItem({
+        id: data[activeElement].id,
+        quantity: quantity,
+        name: data[activeElement].name,
+        color: data[activeElement].value,
+      })
+    );
+    setShowConfetti(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 3000);
+  };
   return (
     <>
       {!isLoading && activeElement !== -1 ? (
@@ -179,9 +196,30 @@ export default function ShoppingPage() {
                     </div>
                   </div>
                   <div className="sm:flex-1 mt-10 flex">
+                    {showConfetti && (
+                      <ConfettiExplosion
+                        force={0.4}
+                        duration={2200}
+                        particleCount={30}
+                        width={400}
+                        colors={[
+                          "#FFC300",
+                          "#FF5733",
+                          "#FFC0CB",
+                          "#F44336",
+                          "#4CAF50",
+                          "#2196F3",
+                          "#9C27B0",
+                          "#FFD700",
+                          "#00FF7F",
+                          "#FF00FF",
+                        ]}
+                      />
+                    )}
                     <button
                       type="button"
                       className="cursor-pointer md:w-44 rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-d-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d-green-100"
+                      onClick={handleClick}
                     >
                       Ajouter au panier
                     </button>

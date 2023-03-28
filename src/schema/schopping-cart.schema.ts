@@ -9,7 +9,7 @@ export const shoppingCartSchema = object({
         id: string(),
         name: string(),
         color: string(),
-        quantity: string(),
+        quantity: number(),
       })
     ).default([]),
   }),

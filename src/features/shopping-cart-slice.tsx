@@ -18,17 +18,24 @@ export const shoppingCartSlice = createSlice({
   reducers: {
     addCartItem: (
       state,
-      action: PayloadAction<{ id: string; name: string; quantity: number }>
-    ) => {},
+      action: PayloadAction<{
+        id: string;
+        name: string;
+        color: string;
+        quantity: number;
+      }>
+    ) => {
+      state.products.push({
+        id: action.payload.id,
+        name: action.payload.name,
+        color: action.payload.color,
+        quantity: action.payload.quantity,
+      });
+      state.quantity += action.payload.quantity;
+    },
     updateItem: () => {},
     deleteItem: () => {},
     resetCart: () => {},
-    // setCandidateInfo: (
-    //   state: { candidate?: Candidate },
-    //   action: PayloadAction<Candidate>
-    // ) => {
-    //   state.candidate = action.payload;
-    // },
   },
 });
 
