@@ -1,6 +1,21 @@
-import React from "react";
-
+import { Field, Form, Formik, FormikValues } from "formik";
+import * as Yup from "yup";
+import flag from "./../../../assets/others/france.png";
+import { useDispatch } from "react-redux";
+import { saveShippingInformation } from "../../../features/shipping-information";
 export default function ShippingDetailsForm() {
+  const dispatch = useDispatch();
+  const FormSchema = Yup.object().shape({
+    firstname: Yup.string().required("Ce champ est obligatoire"),
+    lastname: Yup.string().required("Ce champ est obligatoire"),
+    email: Yup.string().required("Ce champ est obligatoire"),
+    phone: Yup.string().required("Ce champ est obligatoire"),
+    //
+    shipping_address: Yup.string().required("Ce champ est obligatoire"),
+    town: Yup.string().required("Ce champ est obligatoire"),
+    zip_code: Yup.string().required("Ce champ est obligatoire"),
+    province: Yup.string().required("Ce champ est obligatoire"),
+  });
   return (
     <div className="flex justify-center items-cente h-fit my-5 ">
       <div className="flex flex-col md:flex-row gap-4 bg-slate-50  md:gap-0 h-fit w-11/12 rounded-md">
@@ -12,216 +27,262 @@ export default function ShippingDetailsForm() {
             </span>
           </h3>
           <h1>Détails de la livraison </h1>
-          <form
-            id="shipping-form"
-            action="{{ route('order.set-shipping') }}"
-            method="POST"
+          <Formik
+            validationSchema={FormSchema}
+            initialValues={{
+              firstname: "",
+              lastname: "",
+              email: "",
+              phone: "",
+              //
+              shipping_address: "",
+              town: "",
+              zip_code: "",
+              province: "",
+            }}
+            onSubmit={function (values: FormikValues): void | Promise<any> {
+              dispatch(
+                saveShippingInformation({
+                  firstname: values.firstname,
+                  lastname: values.lastname,
+                  email: values.email,
+                  phone: values.phone,
+                  //
+                  shipping_address: values.shipping_address,
+                  town: values.town,
+                  zip_code: values.zip_code,
+                  province: values.province,
+                })
+              );
+            }}
           >
-            @csrf
-            {/* {{-- name --}} */}
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="firstname"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Nom{" "}
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    required
-                    name="firstname"
-                    id="firstname"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email-description"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="lastname"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Prénom
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    required
-                    name="lastname"
-                    id="lastname"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email-description"
-                  />
-                </div>
-              </div>
-            </div>
-            <br />
-            {/* {{-- contact --}} */}
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Adresse email
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="email"
-                    required
-                    name="email"
-                    id="email"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email-description"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Numéro de téléphone
-                </label>
-                <div className="mt-2">
-                  <div className="flex">
-                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                      <img
-                        src="{{ asset('images/france.png') }}"
-                        className="my-0"
-                        height="15px"
-                        width="50px"
-                        alt=""
-                        srcSet=""
+            {({ errors, touched }) => (
+              <Form>
+                {/* {{-- name --}} */}
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="firstname"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Nom{" "}
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="text"
+                        //   required
+                        name="firstname"
+                        id="firstname"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                       />
-                    </span>
-                    <input
-                      type="tel"
-                      required
-                      name="phone"
-                      id="phone"
-                      placeholder="+33"
+                      {errors.firstname && touched.firstname ? (
+                        <div className="text-red-600">
+                          <>{errors.firstname}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      htmlFor="lastname"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Prénom
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="text"
+                        //   required
+                        name="lastname"
+                        id="lastname"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        aria-describedby="email-description"
+                      />
+                      {errors.lastname && touched.lastname ? (
+                        <div className="text-red-600">
+                          <>{errors.lastname}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+                <br />
+                {/* {{-- contact --}} */}
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Adresse email
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="email"
+                        name="email"
+                        id="email"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        aria-describedby="email-description"
+                      />
+                      {errors.email && touched.email ? (
+                        <div className="text-red-600">
+                          <>{errors.email}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Numéro de téléphone
+                    </label>
+                    <div className="mt-2">
+                      <div className="flex">
+                        <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                          <img
+                            src={flag}
+                            className="my-0"
+                            height="15px"
+                            width="50px"
+                            alt=""
+                            srcSet=""
+                          />
+                        </span>
+                        <Field
+                          type="tel"
+                          // required
+                          name="phone"
+                          id="phone"
+                          placeholder="+33"
+                          className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                          aria-describedby="email-description"
+                        />
+                      </div>
+                      {errors.phone && touched.phone ? (
+                        <div className="text-red-600">
+                          <>{errors.phone}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+                <br />
+                {/* {{-- shipping address --}} */}
+                <div className="flex-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Adresse de la livraison
+                  </label>
+                  <div className="mt-2">
+                    <Field
+                      type="text"
+                      // required
+                      name="shipping_address"
+                      id="shipping_address"
                       className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                       aria-describedby="email-description"
                     />
+                    {errors.shipping_address && touched.shipping_address ? (
+                      <div className="text-red-600">
+                        <>{errors.shipping_address}</>
+                      </div>
+                    ) : null}
                   </div>
-                  <div id="phonenumber-error"></div>
                 </div>
-              </div>
-            </div>
-            <br />
-            {/* {{-- shipping address --}} */}
-            <div className="flex-1">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                {" "}
-                Adresse de la livraison
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  required
-                  name="shipping_address"
-                  id="shipping_address"
-                  className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                  aria-describedby="email-description"
-                />
-              </div>
-            </div>
-            <br />
-            {/* {{--  --}} */}
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                <br />
+                {/* {{--  --}} */}
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Ville
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="town"
+                        //   required
+                        name="town"
+                        id="town"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        aria-describedby="email-description"
+                      />
+                      {errors.town && touched.town ? (
+                        <div className="text-red-600">
+                          <>{errors.town}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Code Zip
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="text"
+                        //   required
+                        name="zip_code"
+                        id="zip_code"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        aria-describedby="email"
+                      />
+                      {errors.zip_code && touched.zip_code ? (
+                        <div className="text-red-600">
+                          <>{errors.zip_code}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Département
+                    </label>
+                    <div className="mt-2">
+                      <Field
+                        type="text"
+                        //   required
+                        name="province"
+                        id="province"
+                        className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        aria-describedby="email-description"
+                      />
+                      {errors.province && touched.province ? (
+                        <div className="text-red-600">
+                          <>{errors.province}</>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div className="flex justify-center items-start md:items-center gap-2 text-zinc-900">
+                  {/* <x-akar-shipping-box-v2 class="w-7 m-0 md:ml-4" /> */}
+                  <p className="m-0 sm:m-5 text-xs">
+                    Expédition en 24h et livraison sous 48h/72h
+                  </p>
+                </div>
+                <br />
+                <button
+                  type="submit"
+                  className="float-right rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-cyan-900-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Ville
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="town"
-                    required
-                    name="town"
-                    id="town"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email-description"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Code Zip
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    required
-                    name="zip_code"
-                    id="zip_code"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Département
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    required
-                    name="province"
-                    id="province"
-                    className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    aria-describedby="email-description"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex-1 hidden absolute top-0 left-0">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              ></label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  required
-                  name="carts"
-                  id="carts"
-                  className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                  aria-describedby="email-description"
-                  value="{{ json_encode(Cart::content()) }}"
-                />
-              </div>
-            </div>
-            <br />
-            <div className="flex justify-center items-start md:items-center gap-2 text-zinc-900">
-              {/* <x-akar-shipping-box-v2 class="w-7 m-0 md:ml-4" /> */}
-              <p className="m-0 sm:m-5 text-xs">
-                Expédition en 24h et livraison sous 48h/72h
-              </p>
-            </div>
-            <br />
-            <button
-              type="submit"
-              className="float-right rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-cyan-900-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Suivant
-            </button>
-          </form>
+                  Suivant
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
         <div className="flex-1 bg-slate-100 px-5 sm:px-10  prose max-w-none rounded-md">
           <h1 className="text-center mx-auto mt-4 mb-0">Récapitulatif</h1>

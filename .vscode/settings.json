@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["frontoffice", "Recevez", "reduxjs", "tailwindcss"]
+  "cSpell.words": [
+    "firstname",
+    "Formik",
+    "frontoffice",
+    "lastname",
+    "Recevez",
+    "reduxjs",
+    "tailwindcss"
+  ]
 }

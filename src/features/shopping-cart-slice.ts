@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ShoppingCart } from "../schema/schopping-cart.schema";
+import { ShoppingCart } from "../schema/shopping-cart.schema";
 
 // export interface CandidateState {
 //   candidate?: Candidate;

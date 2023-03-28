@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import counterReducer from "../features/counter/counterSlice";
-// import stepReducer from "./../features/registration-step/registrationStepSlice";
-// import registrationItemReducer from "../features/registration-step/registrationItemSlice";
-// import candidateInfoReducer from "../features/candidate-sheet/candidateSheetSlice";
+
 import ShoppingCartReducer from "../features/shopping-cart-slice";
+import ShippingInformationReducer from "./../features/shipping-information";
 export const store = configureStore({
   reducer: {
     shoppingCart: ShoppingCartReducer,
+    shippingInformation: ShippingInformationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
