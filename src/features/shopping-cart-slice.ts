@@ -16,7 +16,7 @@ interface IProduct {
 const initialState: ShoppingCart = {
   total: 0,
   subTotal: 0,
-  shipping: 0,
+  shipping: 1.99,
   quantity: 0,
   unitPrice: 7,
   products: [],

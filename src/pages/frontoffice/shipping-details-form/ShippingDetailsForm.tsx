@@ -27,8 +27,8 @@ export default function ShippingDetailsForm() {
         <div className="flex-1 flex flex-col gap-7 prose max-w-none justify-center items-start px-4 py-4 md:px-16">
           <h3>
             <span className="text-black">
-              <span className="text-d-green">Panier {">"} Livraison </span>
-              <span> {">"} Paiement </span>
+              <span className="text-d-green">Panier {" > "} Livraison </span>
+              <span> {" > "} Paiement </span>
             </span>
           </h3>
           <h1>Détails de la livraison </h1>

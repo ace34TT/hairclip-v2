@@ -5,7 +5,8 @@ import Homepage from "./pages/frontoffice/homepage/Homepage";
 import ShoppingPage from "./pages/frontoffice/shopping-page/ShoppingPage";
 import ShoppingCart from "./pages/frontoffice/shopping-cart/ShoppingCart";
 import ShippingDetailsForm from "./pages/frontoffice/shipping-details-form/ShippingDetailsForm";
-import Payment from "./pages/frontoffice/paiement/Payment";
+import Payment from "./pages/frontoffice/payment/payment";
+import PaymentSuccess from "./pages/frontoffice/payment-success/PaymentSuccess";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
         <Route path="panier" element={<ShoppingCart />} />
         <Route path="details-livraison" element={<ShippingDetailsForm />} />
         <Route path="paiement" element={<Payment />} />
+        <Route
+          path="paiement-effectue/:id"
+          element={<PaymentSuccess />}
+        ></Route>
       </Route>
       {/* <Route path="applicant" element={<Template />}>
         <Route path="application-form" element={<RegistrationForm />}></Route>
