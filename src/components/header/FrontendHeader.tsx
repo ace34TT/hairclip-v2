@@ -1,8 +1,11 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
 function FrontendHeader() {
   const navigate = useNavigate();
+  const shoppingCart = useSelector((state: RootState) => state.shoppingCart);
   return (
     <header className="flex my-4 justify-between items-center w-full md:h-24 bg-white">
       <div
@@ -32,7 +35,7 @@ function FrontendHeader() {
                   id="total-cart-items"
                   className="inline-flex items-center rounded-full bg-white md:bg-gray-100 md:px-3 py-0.5 text-sm font-medium text-gray-800"
                 >
-                  0
+                  {shoppingCart.quantity}
                 </span>
               </div>
             </div>

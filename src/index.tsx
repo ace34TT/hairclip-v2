@@ -6,7 +6,8 @@ import Favicon from "react-favicon";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
-
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 // axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 axios.defaults.baseURL =
   "https://www.hairclip-v2-server.miarajoris.com/public/api/";
@@ -17,10 +18,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <Favicon url="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png" />
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Favicon url="https://i.ibb.co/0st12ck/1-transparent-logo-black-scroped.png" />
+        <App />
+      </BrowserRouter>
+    </Provider>
   </QueryClientProvider>
 );
 

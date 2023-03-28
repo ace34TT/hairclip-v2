@@ -19,6 +19,11 @@ export default function ShoppingPage() {
   const handleItem = (selectedItem: string) => {
     setActiveElement(parseInt(selectedItem));
   };
+
+  //
+  const [quantity, setQuantity] = useState(1);
+  const handleAddItem = () => {};
+  const handleQuantity = () => {};
   return (
     <>
       {!isLoading && activeElement !== -1 ? (
@@ -69,11 +74,23 @@ export default function ShoppingPage() {
                   </p>
                 </div>
                 <div className="flex gap-4 items-center mt-4">
-                  <AiOutlinePlusCircle size={28} />
+                  <AiOutlineMinusCircle
+                    size={28}
+                    onClick={() => {
+                      if (quantity > 1) setQuantity(quantity - 1);
+                    }}
+                    className="cursor-pointer"
+                  />
                   <span data-quantity="" id="quantity">
-                    1
+                    {quantity}
                   </span>
-                  <AiOutlineMinusCircle size={28} />
+                  <AiOutlinePlusCircle
+                    size={28}
+                    onClick={() => {
+                      setQuantity(quantity + 1);
+                    }}
+                    className="cursor-pointer"
+                  />
                 </div>
                 <section aria-labelledby="details-heading" className="mt-4">
                   <h2 id="details-heading" className="sr-only">
@@ -112,6 +129,7 @@ export default function ShoppingPage() {
                           return (
                             <label
                               onClick={() => {
+                                setQuantity(1);
                                 handleItem(key);
                               }}
                               className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-700"
@@ -150,23 +168,20 @@ export default function ShoppingPage() {
                       <ul className="ml-3">
                         <li>
                           <div className="flex justify-start items-center gap-2">
-                            {/* <x-akar-shipping-box-v2 class="w-5 text-black" /> */}
                             <p className="text-black">
                               Expédition en 24h et livraison sous 48h/72h
                             </p>
                           </div>
                         </li>
-                        <li>1.99 € pour un achat de moins de 3 chouchou</li>
-                        <li>4.99 € pour un achat de plus de 3 chouchou</li>
+                        {/* <li>1.99 € pour un achat de moins de 3 chouchou</li>
+                        <li>4.99 € pour un achat de plus de 3 chouchou</li> */}
                       </ul>
                     </div>
                   </div>
                   <div className="sm:flex-1 mt-10 flex">
                     <button
-                      id="add-to-cart-btn"
                       type="button"
-                      className="confetti-button"
-                      data-product-id="{{ $product->id }}"
+                      className="cursor-pointer md:w-44 rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-d-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d-green-100"
                     >
                       Ajouter au panier
                     </button>
