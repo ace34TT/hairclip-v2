@@ -10,6 +10,12 @@ import { useSaveOrder } from "../../../../hooks/useOrder";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
+import { persistStore } from "redux-persist";
+import { store } from "../../../../redux/store";
+const persistor = persistStore(store);
+
+// Call persistor.purge() to clear the persisted data
+
 interface IProps {
   clientSecret: string;
 }
@@ -87,6 +93,7 @@ export default function CheckoutForm({ clientSecret }: IProps) {
   };
   useEffect(() => {
     if (isSuccess) {
+      persistor.purge();
       navigate("/paiement-effectue/" + data.data.order_id);
     }
   }, [isSuccess]);

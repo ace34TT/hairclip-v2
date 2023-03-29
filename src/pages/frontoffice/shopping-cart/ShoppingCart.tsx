@@ -4,7 +4,10 @@ import { RootState } from "../../../redux/store";
 import { TbBoxSeam } from "react-icons/tb";
 import { imgHelper } from "../../../helpers/assets.helper";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import { updateCartItem } from "../../../features/shopping-cart-slice";
+import {
+  deleteCartItem,
+  updateCartItem,
+} from "../../../features/shopping-cart-slice";
 import { useNavigate } from "react-router-dom";
 
 export default function ShoppingCart() {
@@ -92,12 +95,21 @@ export default function ShoppingCart() {
                                     className="product_id hidden"
                                   ></span>
                                 </p>
-                                <a
-                                  className="underline mt-3 text-cyan-900"
-                                  href="{{ route('shopping-cart.remove-item', ['rowId' => $cart_item->rowId]) }}"
+                                <button
+                                  onClick={() => {
+                                    console.log("clicked");
+
+                                    dispatch(deleteCartItem({ id: item.id }));
+                                  }}
                                 >
-                                  Supprimer
-                                </a>
+                                  <p className="underline mt-3 text-d-green">
+                                    Supprimer
+                                  </p>
+                                </button>
+                                {/* <a
+                                 
+                                  href="#"
+                                ></a> */}
                               </div>
                             </div>
                           </div>

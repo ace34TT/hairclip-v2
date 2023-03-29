@@ -5,6 +5,7 @@ import CheckoutForm from "./payment-form/CheckoutForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { imgHelper } from "../../../helpers/assets.helper";
+import axios from "axios";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PK_STRIPE!);
 export default function Payment() {
@@ -16,12 +17,24 @@ export default function Payment() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ total: cart.total }),
+      // mode: "no-cors",
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setClientSecret(data.clientSecret);
       });
+    // axios
+    //   .post(
+    //     process.env.REACT_APP_GENERATE_CLIENT_URL!,
+    //     JSON.stringify({ total: cart.total })
+    //   )
+    //   .then((response) => {
+    //     setClientSecret(response.data.clientSecret);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }, []);
 
   const options = {
