@@ -32,10 +32,8 @@ function Colors() {
               <PuffLoader
                 color={"#03524C"}
                 loading={isLoading}
-                // cssOverride={}
                 size={150}
                 aria-label="Loading Spinner"
-                // data-testid="loader"
               />
             </div>
           ) : (

@@ -40,7 +40,6 @@ const PhotoGrid = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     handleExtendGallery() {
       setExtendedGallery(!extendedGallery);
-
       if (extendedFirstItemRef.current && extendedGallery === false)
         extendedFirstItemRef.current.scrollIntoView({
           behavior: "smooth",
@@ -65,7 +64,6 @@ const PhotoGrid = forwardRef((props, ref) => {
       if (imageViewerRef.current) {
         imageViewerRef.current.src = mainGrid[activeImage!];
       }
-    } else {
     }
   }, [activeImage]);
 
@@ -133,7 +131,6 @@ const PhotoGrid = forwardRef((props, ref) => {
       ) : (
         <></>
       )}
-      {/*  */}
       <section className="overflow-hidden mt-4 text-neutral-700">
         <div className="rounded-b-md container mx-auto px-5 py-2">
           <div className="gallery -m-1 flex flex-wrap md:-m-2 rounded-sm">
