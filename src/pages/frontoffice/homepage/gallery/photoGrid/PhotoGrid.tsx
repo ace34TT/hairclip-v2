@@ -147,6 +147,9 @@ const PhotoGrid = forwardRef((props, ref) => {
               </div>
               <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                 <img
+                  onClick={() => {
+                    handleShowImagePreview(1);
+                  }}
                   alt="gallery"
                   className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                   src={mainGrid[1]}
@@ -157,6 +160,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                 ref={extendedFirstItemRef}
               >
                 <img
+                  onClick={() => {
+                    handleShowImagePreview(2);
+                  }}
                   alt="gallery"
                   className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                   src={mainGrid[2]}
@@ -166,6 +172,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                 <>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(3);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[3]}
@@ -173,6 +182,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(4);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[4]}
@@ -180,6 +192,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-full p-1 cursor-pointer md:p-2 max-h-96">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(5);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[5]}
@@ -187,6 +202,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(6);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[6]}
@@ -194,6 +212,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(7);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[7]}
@@ -201,6 +222,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-full p-1 cursor-pointer md:p-2 max-h-96">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(8);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[8]}
@@ -208,6 +232,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(9);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[9]}
@@ -215,6 +242,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(10);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[10]}
@@ -228,6 +258,9 @@ const PhotoGrid = forwardRef((props, ref) => {
             <div className="flex w-1/2 flex-wrap">
               <div className="w-full p-1 cursor-pointer md:p-2 max-h-96">
                 <img
+                  onClick={() => {
+                    handleShowImagePreview(11);
+                  }}
                   id="video-preview-2"
                   alt="gallery"
                   className="block h-full w-full rounded-lg object-cover object-center "
@@ -236,6 +269,9 @@ const PhotoGrid = forwardRef((props, ref) => {
               </div>
               <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                 <img
+                  onClick={() => {
+                    handleShowImagePreview(12);
+                  }}
                   alt="gallery"
                   className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                   src={mainGrid[12]}
@@ -243,6 +279,9 @@ const PhotoGrid = forwardRef((props, ref) => {
               </div>
               <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                 <img
+                  onClick={() => {
+                    handleShowImagePreview(13);
+                  }}
                   alt="gallery"
                   className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                   src={mainGrid[13]}
@@ -252,7 +291,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                 <>
                   <div className="w-full p-1 cursor-pointer md:p-2 max-h-96">
                     <img
-                      id="video-preview-2"
+                      onClick={() => {
+                        handleShowImagePreview(14);
+                      }}
                       alt="gallery"
                       className="block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[14]}
@@ -260,6 +301,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(15);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[15]}
@@ -267,6 +311,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(16);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[16]}
@@ -274,7 +321,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-full p-1 cursor-pointer md:p-2 max-h-96">
                     <img
-                      id="video-preview-2"
+                      onClick={() => {
+                        handleShowImagePreview(17);
+                      }}
                       alt="gallery"
                       className="block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[17]}
@@ -282,6 +331,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(18);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[18]}
@@ -289,6 +341,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(19);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[19]}
@@ -296,6 +351,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(20);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[20]}
@@ -303,6 +361,9 @@ const PhotoGrid = forwardRef((props, ref) => {
                   </div>
                   <div className="w-1/2 p-1 cursor-pointer md:p-2 max-h-80">
                     <img
+                      onClick={() => {
+                        handleShowImagePreview(21);
+                      }}
                       alt="gallery"
                       className="transition ease-in-out hover:scale-[1.025] hover:shadow-sm gallery-item block h-full w-full rounded-lg object-cover object-center "
                       src={mainGrid[21]}

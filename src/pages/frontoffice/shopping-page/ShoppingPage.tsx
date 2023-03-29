@@ -10,6 +10,7 @@ import { addCartItem } from "../../../features/shopping-cart-slice";
 import { PuffLoader } from "react-spinners";
 import gsap from "gsap";
 import { TbBoxSeam } from "react-icons/tb";
+import { Helmet } from "react-helmet";
 export default function ShoppingPage() {
   const dispatch = useDispatch();
   // * initializing data
@@ -73,6 +74,9 @@ export default function ShoppingPage() {
   };
   return (
     <>
+      <Helmet>
+        <title>Hairclip - Produits</title>
+      </Helmet>
       {!isLoading && activeElement !== -1 ? (
         <>
           <div className="mx-auto max-w-2xl py-4 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

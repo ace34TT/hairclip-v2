@@ -1,6 +1,10 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
+import { TbBoxSeam } from "react-icons/tb";
+import "moment/locale/fr";
+moment.locale("fr");
 const scrunchies = {
   image_1: require("./../../../assets/scrunchies/HairClip PackS HD-19-min.webp"),
   image_2: require("./../../../assets/scrunchies/HairClip PackS HD-20-min.webp"),
@@ -13,9 +17,9 @@ const scrunchies = {
 function Hero() {
   const [currentDate, setCurrentDate] = useState<string>("");
   useEffect(() => {
-    // moment.locale("fr");
-    const futureDateFr = moment().locale("fr").add(3, "days").format("LL");
-    setCurrentDate(futureDateFr);
+    const date = moment().add(3, "days");
+    const long = date.format("dddd LL");
+    setCurrentDate(long);
   }, []);
 
   const [loadedImages, setLoadedImages] = useState(0);
@@ -104,7 +108,7 @@ function Hero() {
         );
     }
   }, [loadedImages, totalImages]);
-
+  const navigate = useNavigate();
   return (
     <div className="container mb-10 md:-mt-24 mx-auto h-fit md:min-h-screen flex justify-center items-center">
       <div className="w-full h-fit flex flex-col lg:flex-row items-start justify-around gap-4 px-4 md:px-4">
@@ -166,12 +170,15 @@ function Hero() {
           </p>
           <div className="flex gap-5 justify-end items-center w-full">
             <div className="flex justify-center items-center gap-2 text-zinc-900">
-              {/* <x-akar-shipping-box-v2 class="w-7 m-0 md:ml-4" /> */}
+              <TbBoxSeam className={"w-8 h-8"} />
               <p className="m-0  text-xs md:text-base">
                 Recevez-le {currentDate}
               </p>
             </div>
             <button
+              onClick={() => {
+                navigate("/produits/1");
+              }}
               type="button"
               className="md:w-44 rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-d-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d-green-100"
             >
