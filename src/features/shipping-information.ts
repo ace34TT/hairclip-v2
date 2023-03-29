@@ -46,10 +46,21 @@ export const shippingInformationSlice = createSlice({
       state.town = action.payload.town;
       state.province = action.payload.province;
     },
+    resetShippingInformation: (state) => {
+      state.firstname = "";
+      state.lastname = "";
+      state.email = "";
+      state.phone = "";
+      state.shipping_address = "";
+      state.zip_code = "";
+      state.town = "";
+      state.province = "";
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { saveShippingInformation } = shippingInformationSlice.actions;
+export const { saveShippingInformation, resetShippingInformation } =
+  shippingInformationSlice.actions;
 
 export default shippingInformationSlice.reducer;

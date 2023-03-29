@@ -11,9 +11,9 @@ import { store } from "./redux/store";
 //
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-// axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
-axios.defaults.baseURL =
-  "https://www.hairclip-v2-server.miarajoris.com/public/api/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+// axios.defaults.baseURL =
+//   "https://www.hairclip-v2-server.miarajoris.com/public/api/";
 //
 const queryClient = new QueryClient();
 //

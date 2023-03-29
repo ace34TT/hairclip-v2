@@ -7,23 +7,26 @@ import {
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useSaveOrder } from "../../../../hooks/useOrder";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { persistStore } from "redux-persist";
 import { store } from "../../../../redux/store";
+import {
+  addCartItem,
+  resetCartItem,
+} from "../../../../features/shopping-cart-slice";
+import { resetShippingInformation } from "../../../../features/shipping-information";
+
 const persistor = persistStore(store);
-
-// Call persistor.purge() to clear the persisted data
-
 interface IProps {
   clientSecret: string;
 }
-
+const a = addCartItem;
 export default function CheckoutForm({ clientSecret }: IProps) {
+  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +96,9 @@ export default function CheckoutForm({ clientSecret }: IProps) {
   };
   useEffect(() => {
     if (isSuccess) {
-      persistor.purge();
+      // persistor.purge();
+      dispatch(resetShippingInformation());
+      dispatch(resetCartItem());
       navigate("/paiement-effectue/" + data.data.order_id);
     }
   }, [isSuccess]);

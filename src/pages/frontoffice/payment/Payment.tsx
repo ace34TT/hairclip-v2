@@ -15,36 +15,15 @@ export default function Payment() {
   const [clientSecret, setClientSecret] = useState("");
   const { mutate, data, isLoading, isSuccess } = useGenerateClientSecret();
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     mutate({ total: cart.total });
-    // fetch(process.env.REACT_APP_GENERATE_CLIENT_URL!, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ total: cart.total }),
-    //   // mode: "no-cors",
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setClientSecret(data.clientSecret);
-    //   });
-    // axios
-    //   .post(
-    //     process.env.REACT_APP_GENERATE_CLIENT_URL!,
-    //     JSON.stringify({ total: cart.total })
-    //   )
-    //   .then((response) => {
-    //     setClientSecret(response.data.clientSecret);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (!isLoading) {
-      console.log(data);
+    if (!isLoading && data) {
+      setClientSecret(data.data.clientSecret);
+      console.log(data.data.clientSecret);
     }
-  }, [isLoading]);
+  }, [isLoading, data]);
 
   const options = {
     clientSecret,
@@ -86,9 +65,10 @@ export default function Payment() {
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                       {/* {{-- main data --}} */}
-                      {cart.products.map((item) => {
+                      {cart.products.map((item, key) => {
                         return (
                           <tr
+                            key={key}
                             className="cart-item-row"
                             data-quantity="{{ $cart_item->qty }}"
                             data-row-id="{{ $cart_item->rowId }}"
@@ -101,7 +81,7 @@ export default function Payment() {
                                 <div className="w-fit sm:w-56">
                                   <div
                                     className="relative"
-                                    style={{ height: "150px", width: "150px;" }}
+                                    style={{ height: "150px", width: "150px" }}
                                   >
                                     <img
                                       className="m-0 rounded-md"

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ShoppingCart } from "../schema/shopping-cart.schema";
-import { stat } from "fs";
 
 // export interface CandidateState {
 //   candidate?: Candidate;
@@ -114,12 +113,19 @@ export const shoppingCartSlice = createSlice({
         state.products.splice(index, 1);
       }
     },
-    resetCart: () => {},
+    resetCartItem: (state) => {
+      state.total = 0;
+      state.subTotal = 0;
+      state.shipping = 1.99;
+      state.quantity = 0;
+      state.unitPrice = 7;
+      state.products = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addCartItem, updateCartItem, deleteCartItem } =
+export const { addCartItem, updateCartItem, deleteCartItem, resetCartItem } =
   shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

@@ -75,9 +75,10 @@ export default function ShoppingCart() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cart.products.map((item) => {
+                    {cart.products.map((item, key) => {
                       return (
                         <tr
+                          key={key}
                           data-quantity="{{ $cart_item->qty }}"
                           data-row-id="{{ $cart_item->rowId }}"
                           className="border-b border-gray-200 cart-item-row"
@@ -95,10 +96,7 @@ export default function ShoppingCart() {
                                 <div>
                                   <p className="text-2xl mb-0 mt-0 font-bold">
                                     {item.name}
-                                    <span
-                                      data-id="{{ $cart_item->id }}"
-                                      className="product_id hidden"
-                                    ></span>
+                                    <span className="product_id hidden"></span>
                                   </p>
                                   <button
                                     onClick={() => {

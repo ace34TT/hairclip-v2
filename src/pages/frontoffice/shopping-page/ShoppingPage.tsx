@@ -179,6 +179,7 @@ export default function ShoppingPage() {
                         {data.map((product: any, key: string) => {
                           return (
                             <label
+                              key={key}
                               onClick={() => {
                                 setQuantity(1);
                                 handleItem(key);
