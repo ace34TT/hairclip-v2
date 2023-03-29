@@ -12,13 +12,15 @@ function FrontendFooter() {
         </div>
         <div className="md:h-5/6 flex gap-4 md:gap-12">
           <div className="w-1/2">
-            <div className="text-gray-400">
-              <div className="flex justify-center items-start gap-2">
-                <TbBoxSeam className={"w-8 h-8 text-white"} />
-                <p className="text-white">
-                  Expédition en 24h et livraison sous 48h/72h
-                </p>
-              </div>
+            <div className="text-white">
+              <ul className="mx-4 mb-0 pl-4">
+                <li className="flex justify-start items-start gap-2">
+                  <TbBoxSeam className={"w-8 h-8"} />
+                  <p className=" m-0">
+                    Expédition en 24h et livraison sous 48h/72h
+                  </p>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="w-1/2">

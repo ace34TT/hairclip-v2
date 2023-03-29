@@ -7,7 +7,9 @@ import "./style.css";
 import ConfettiExplosion from "react-confetti-explosion";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../../../features/shopping-cart-slice";
-
+import { PuffLoader } from "react-spinners";
+import gsap from "gsap";
+import { TbBoxSeam } from "react-icons/tb";
 export default function ShoppingPage() {
   const dispatch = useDispatch();
   // * initializing data
@@ -41,6 +43,33 @@ export default function ShoppingPage() {
     setTimeout(() => {
       setShowConfetti(false);
     }, 3000);
+  };
+  // * shipping information
+  const [shippingVisibility, setShippingVisibility] = useState(false);
+  const handleShippingInformation = () => {
+    if (shippingVisibility) {
+      gsap.to("#shipping-information", {
+        // position: "absolute",
+        // height: "0",
+        opacity: "0",
+      });
+      gsap.to(".horizontal", {
+        opacity: "1",
+        rotate: "0",
+      });
+      setShippingVisibility(false);
+    } else {
+      gsap.to("#shipping-information", {
+        // position: "static",
+        // height: "fit-content",
+        opacity: "1",
+      });
+      gsap.to(".horizontal", {
+        opacity: "0",
+        rotate: "90",
+      });
+      setShippingVisibility(true);
+    }
   };
   return (
     <>
@@ -169,61 +198,69 @@ export default function ShoppingPage() {
                       </span>
                     </fieldset>
                   </div>
-                  <div className="mt-6 py-6 border-t-2 border-b-2">
+                  <div className="mt-6 py-6 border-t-2 border-b-2 h-auto min-h-full">
                     <div className="flex justify-between items-center">
                       <div className="font-bold text-lg">Livraison </div>
-                      <button className="mr-9 bg-slate-200">
+                      <button
+                        className="mr-9 bg-slate-200"
+                        onClick={() => {
+                          handleShippingInformation();
+                        }}
+                      >
                         <div className="plus">
                           <div className="horizontal h-7 w-[2px] bg-black"></div>
                           <div className="vertical h-7 w-[2px] -mt-7 bg-black rotate-90"></div>
                         </div>
                       </button>
                     </div>
-                    <div
-                      className="mt-2 md:mt-4 h-0 absolute opacity-0"
-                      id="shipping-information"
-                    >
-                      <ul className="ml-3">
-                        <li>
-                          <div className="flex justify-start items-center gap-2">
-                            <p className="text-black">
+                    {shippingVisibility ? (
+                      <div className="mt-2 md:mt-4" id="shipping-information">
+                        <ul className="mx-4 mb-0 pl-4">
+                          <li className="flex justify-start items-end gap-2">
+                            <TbBoxSeam className={"w-8 h-8"} />
+                            <p className=" m-0">
                               Expédition en 24h et livraison sous 48h/72h
                             </p>
-                          </div>
-                        </li>
-                        {/* <li>1.99 € pour un achat de moins de 3 chouchou</li>
-                        <li>4.99 € pour un achat de plus de 3 chouchou</li> */}
-                      </ul>
-                    </div>
+                          </li>
+                          <li>1.99 € pour un achat de moins de 3 chouchou</li>
+                          <li>4.99 € pour un achat de plus de 3 chouchou</li>
+                        </ul>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="sm:flex-1 mt-10 flex">
-                    {showConfetti && (
-                      <ConfettiExplosion
-                        force={0.4}
-                        duration={2200}
-                        particleCount={30}
-                        width={400}
-                        colors={[
-                          "#FFC300",
-                          "#FF5733",
-                          "#FFC0CB",
-                          "#F44336",
-                          "#4CAF50",
-                          "#2196F3",
-                          "#9C27B0",
-                          "#FFD700",
-                          "#00FF7F",
-                          "#FF00FF",
-                        ]}
-                      />
-                    )}
-                    <button
-                      type="button"
-                      className="cursor-pointer md:w-44 rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-d-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d-green-100"
-                      onClick={handleClick}
-                    >
-                      Ajouter au panier
-                    </button>
+                    <div className="relative">
+                      {showConfetti && (
+                        <ConfettiExplosion
+                          className=" absolute top-0 left-[50%] right-[50%]"
+                          force={0.4}
+                          duration={2200}
+                          particleCount={30}
+                          width={400}
+                          colors={[
+                            "#FFC300",
+                            "#FF5733",
+                            "#FFC0CB",
+                            "#F44336",
+                            "#4CAF50",
+                            "#2196F3",
+                            "#9C27B0",
+                            "#FFD700",
+                            "#00FF7F",
+                            "#FF00FF",
+                          ]}
+                        />
+                      )}
+                      <button
+                        type="button"
+                        className="cursor-pointer md:w-44 rounded-md bg-d-green py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-d-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d-green-100"
+                        onClick={handleClick}
+                      >
+                        Ajouter au panier
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -231,7 +268,14 @@ export default function ShoppingPage() {
           </div>
         </>
       ) : (
-        <>Loading ...</>
+        <div className="flex justify-center items-center w-full h-screen">
+          <PuffLoader
+            color={"#03524C"}
+            loading={isLoading}
+            size={150}
+            aria-label="Loading Spinner"
+          />
+        </div>
       )}
     </>
   );
